@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <h1>Customer Sentiment Dashboard</h1>
+
+    <div class="chart">
+        <h2>Sentiment Distribution</h2>
+        <img src="{{ url_for('static', filename='sentiment_chart.png') }}">
+    </div>
+
+    <div class="chart">
+        <h2>Model Accuracy Comparison</h2>
+        <img src="{{ url_for('static', filename='accuracy_chart.png') }}">
+    </div>
+
+    <div class="chart">
+        <h2>Review Trends Over Time</h2>
+        <img src="{{ url_for('static', filename='trend_chart.png') }}">
+    </div>
+
+</body>
+
+</html>

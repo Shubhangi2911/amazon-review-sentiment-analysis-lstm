@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Review Sentiment Analyzer</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="top-line"></div>
+
+        <!-- HEADER -->
+        <h1>
+            <img class="amazon-icon"
+                 src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
+                 alt="Amazon">
+            Review Sentiment Analyzer
+        </h1>
+
+        <p class="subtitle">
+            Analyze the sentiment of Amazon product reviews with machine learning
+        </p>
+
+        <!-- HERO -->
+        <div class="hero-box">
+
+            <div class="stars">★★★★★</div>
+
+            <h2>Discover what customers really think</h2>
+
+        </div>
+
+        <!-- INPUT -->
+        <form action="/predict" method="POST">
+
+            <textarea name="review"
+                placeholder="Enter Amazon customer review here..."
+                required>{{ review if review else '' }}</textarea>
+
+            <button type="submit">🔍 Analyze Review</button>
+
+        </form>
+
+        <!-- RESULT -->
+        {% if prediction_text %}
+
+        <div class="result-box">
+
+            <!-- SENTIMENT -->
+            <h2 style="color: {{ color }};">
+                This review appears to be {{ prediction_text }}
+            </h2>
+
+            <!-- STARS -->
+            <div class="stars-result">
+                {% if "Positive" in prediction_text %}
+                    ★★★★★
+                {% elif "Negative" in prediction_text %}
+                    ★
+                {% else %}
+                    ★★★
+                {% endif %}
+            </div>
+
+            <!-- CONFIDENCE -->
+            <p class="confidence">
+                Confidence: {{ confidence_text }}
+            </p>
+
+            <!-- PROGRESS BAR -->
+            <div class="progress-bar">
+                <div class="progress"
+                    style="width: {{ confidence }}%;
+                    background: {{ color }};">
+                </div>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <p class="description">
+
+                {% if "Positive" in prediction_text %}
+                    This review reflects a positive customer experience. The customer appears satisfied with the product.
+
+                {% elif "Negative" in prediction_text %}
+                    This review reflects a negative customer experience. The customer appears disappointed with the product.
+
+                {% else %}
+                    This review reflects a neutral customer experience. The review contains balanced opinions.
+                {% endif %}
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
